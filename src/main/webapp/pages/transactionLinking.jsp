@@ -184,8 +184,9 @@
 </div>
 
 <!-- Application Files -->
-<script type="text/javascript" src="/resources/js/transactionLinkingControllers.js"></script>
 <script type="text/javascript" src="/resources/js/transactionLinking.js"></script>
+<script type="text/javascript" src="/resources/js/transactionLinkingControllers.js"></script>
+<script type="text/javascript" src="/resources/js/transactionLinkingApp.js"></script>
 
 </body>
 </html>
