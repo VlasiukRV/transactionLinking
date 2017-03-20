@@ -1,0 +1,43 @@
+.dataTable{
+   /* border: 1px solid black;*/
+    border-top: 2px solid #000; /* Линия сверху таблицы */
+    border-bottom: 2px solid #000; /* Линия внизу таблицы */
+}
+
+.dataTableRow{
+    border-bottom: 1px solid #000; /* Линия под верхним заголовком */
+}
+
+td{
+   /* border: 1px solid lightgray;*/
+    padding: 5px;
+    padding-right: 30px;
+}
+
+
+.tableHeader{
+    background:#FAF0E6;
+    width:900px;
+    font-size: 1.0em;
+    top: 10px;
+}
+
+.tableName{
+    display:block;
+    background:#FAF0E6;
+    width:900px;
+    font-size: 1.8em;
+    top: 10px;
+}
+
+
+
+.matchingFull {
+    background: #BADBAD;
+}
+.matchingPartly {
+    background: #F0DC82;
+}
+.matchingNo {
+    background: #FFD1DC;
+}
