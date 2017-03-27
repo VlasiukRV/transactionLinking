@@ -1,4 +1,4 @@
-package vr.com.apps.config;
+package vr.com.apps.transactionLinking.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -1,4 +1,4 @@
-package vr.com.apps.config;
+package vr.com.apps.transactionLinking.controller;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
