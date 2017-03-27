@@ -26,16 +26,24 @@ function directiveButton(){
 
 function transactionLinkingSettingsController($scope, dataStorage, resourceService){
 
+    $scope.showSpecial = "false";
+
+    $scope.resOrdersLoadStatus = true;
     $scope.ordersFilename = "E:\\Work\\oders.txt";
+    $scope.resTransactionsLoadStatus = true;
     $scope.transactionsFilename = "E:\\Work\\transactions.txt";
     $scope.banksKinds = [];
     /*$scope.bankKind = "PB";*/
 
     $scope.setLinkingResourceOrders = function(){
-        setFileResource('Orders', $scope.ordersFilename, "_");
+        setFileResource('Orders', $scope.ordersFilename, "_", function(data){
+            $scope.resOrdersLoadStatus = data.success;
+        });
     };
     $scope.setLinkingResourceTransactions = function(){
-        setFileResource('Transactions', $scope.transactionsFilename, $scope.bankKind);
+        setFileResource('Transactions', $scope.transactionsFilename, $scope.bankKind, function(data){
+            $scope.resTransactionsLoadStatus = data.success;
+        });
     };
 
     function setBankKinds(resourceService){
@@ -45,7 +53,7 @@ function transactionLinkingSettingsController($scope, dataStorage, resourceServi
         });
     };
 
-    function setFileResource(resourceType, filename, bankKind){
+    function setFileResource(resourceType, filename, bankKind, f){
         resourceService.getTransactionSettingsService()
             .setLinkingResource({
                 section: "setFileResource",
@@ -57,7 +65,7 @@ function transactionLinkingSettingsController($scope, dataStorage, resourceServi
 
                 },
             function(data){
-
+                f(data);
             });
     }
 

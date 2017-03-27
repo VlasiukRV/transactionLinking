@@ -1,5 +1,6 @@
 package vr.com.apps.config;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -43,9 +44,11 @@ public class TransactionLinkingController {
 
     @RequestMapping(value = "/settings/setFileResource/{resourceType}", method = RequestMethod.PATCH, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public boolean setLinkingResource(@PathVariable("resourceType")String resourceType,
+    public String setLinkingResource(@PathVariable("resourceType")String resourceType,
                                    @RequestParam String filename,
                                    @RequestParam String strBankKind){
+
+        boolean success = true;
 
         ResourceList currentResource = null;
         if (resourceType.equals("Orders")) {
@@ -59,10 +62,13 @@ public class TransactionLinkingController {
         }
 
         if(currentResource != null) {
-            downloadFileResource(currentResource, filename);
+            success = downloadFileResource(currentResource, filename);
         }
 
-        return true;
+        JSONObject json = new JSONObject();
+        json.put("success", success);
+
+        return json.toString();
     }
 
     @RequestMapping(value = "/resource/banksKinds", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -79,12 +85,15 @@ public class TransactionLinkingController {
 
     @RequestMapping(value = "/result", method = RequestMethod.PATCH, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public boolean updateTransactionLinkingRes() {
-        boolean rez = true;
+    public String updateTransactionLinkingRes() {
+        boolean success = true;
 
         linkingApp.makeTransactionLinking();
 
-        return rez;
+        JSONObject json = new JSONObject();
+        json.put("success", success);
+
+        return json.toString();
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -95,10 +104,10 @@ public class TransactionLinkingController {
 
     @RequestMapping(value = "/record/{operationId}", method = RequestMethod.PATCH, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public boolean changeRecordInTransactionsLinking(@PathVariable("operationId") String operationId,
+    public String changeRecordInTransactionsLinking(@PathVariable("operationId") String operationId,
                                                      @RequestParam("currentCustomerId") String currentCustomerId,
                                                      @RequestParam("newCustomerId") String newCustomerId){
-        boolean rez = true;
+        boolean success = true;
 
         BankTransaction operation = (BankTransaction)linkingApp.getOperation(operationId);
         Customer currentCustomer = linkingApp.getCustomer(currentCustomerId);
@@ -111,7 +120,10 @@ public class TransactionLinkingController {
             operation.setCustomer(newCustomer);
         }
 
-        return rez;
+        JSONObject json = new JSONObject();
+        json.put("success", success);
+
+        return json.toString();
     }
 
     @RequestMapping(value = "/getReportTransactionsHistory", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
@@ -121,7 +133,7 @@ public class TransactionLinkingController {
         return Utils.getJSONOfObject(linkingApp.getReportTransactionsHistory());
     }
 
-    private void downloadFileResource(ResourceList currentResource, String filename){
+    private boolean downloadFileResource(ResourceList currentResource, String filename){
         boolean downloadResource = false;
 
         if (currentResource != null) {
@@ -136,8 +148,10 @@ public class TransactionLinkingController {
                 currentResource.downloadResource();
             } catch (IOException ex) {
                 System.out.println("Error download resource " + currentResource);
+                downloadResource = false;
             }
         }
 
+        return downloadResource;
     }
 }
