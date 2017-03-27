@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import vr.com.apps.transactionLinking.EMatchingOptions;
-import vr.com.apps.transactionLinking.model.entity.BankStatement;
+import vr.com.apps.transactionLinking.service.banksTransactions.BankStatement;
 import vr.com.apps.transactionLinking.model.entity.BankTransaction;
 import vr.com.apps.transactionLinking.model.entity.Customer;
 import vr.com.apps.transactionLinking.model.entity.Operation;

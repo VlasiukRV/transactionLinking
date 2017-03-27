@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import vr.com.apps.transactionLinking.model.entity.BankStatement;
+import vr.com.apps.transactionLinking.service.banksTransactions.BankStatement;
 import vr.com.apps.transactionLinking.model.entity.Customer;
 import vr.com.apps.transactionLinking.model.report.ReportTransactionsHistory;
 import vr.com.apps.transactionLinking.service.ResourceList;

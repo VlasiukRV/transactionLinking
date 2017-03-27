@@ -1,6 +1,7 @@
 package vr.com.apps.transactionLinking.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import vr.com.apps.transactionLinking.service.banksTransactions.BankStatement;
 
 public class BankTransaction extends Operation {
     @JsonProperty("customer")

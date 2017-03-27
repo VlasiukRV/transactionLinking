@@ -1,7 +1,10 @@
-package vr.com.apps.transactionLinking.model.entity;
+package vr.com.apps.transactionLinking.service.banksTransactions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import vr.com.apps.transactionLinking.EMatchingOptions;
+import vr.com.apps.transactionLinking.model.entity.Customer;
+import vr.com.apps.transactionLinking.model.entity.EOperationType;
+import vr.com.apps.transactionLinking.model.entity.Operation;
 
 public abstract class BankStatement extends Operation {
 

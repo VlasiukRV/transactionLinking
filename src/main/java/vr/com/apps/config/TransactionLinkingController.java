@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import vr.com.apps.transactionLinking.model.LinkingApp;
-import vr.com.apps.transactionLinking.model.entity.BankStatement;
+import vr.com.apps.transactionLinking.service.banksTransactions.BankStatement;
 import vr.com.apps.transactionLinking.model.entity.BankTransaction;
 import vr.com.apps.transactionLinking.model.entity.Customer;
 import vr.com.apps.transactionLinking.service.ResourceList;

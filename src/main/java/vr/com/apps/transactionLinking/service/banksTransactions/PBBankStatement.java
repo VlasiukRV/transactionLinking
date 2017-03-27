@@ -2,7 +2,6 @@ package vr.com.apps.transactionLinking.service.banksTransactions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import vr.com.apps.transactionLinking.EMatchingOptions;
-import vr.com.apps.transactionLinking.model.entity.BankStatement;
 import vr.com.apps.transactionLinking.model.entity.Customer;
 import vr.com.apps.utility.Utils;
 

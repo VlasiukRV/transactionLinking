@@ -6,6 +6,7 @@ import vr.com.apps.transactionLinking.model.entity.*;
 import vr.com.apps.transactionLinking.model.report.ReportTransactionsHistory;
 import vr.com.apps.transactionLinking.service.ResourceList;
 import vr.com.apps.transactionLinking.service.ResourceListOrders;
+import vr.com.apps.transactionLinking.service.banksTransactions.BankStatement;
 
 import java.util.HashSet;
 import java.util.Map;

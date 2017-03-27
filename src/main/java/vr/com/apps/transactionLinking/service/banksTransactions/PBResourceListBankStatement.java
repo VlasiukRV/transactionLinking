@@ -1,6 +1,5 @@
 package vr.com.apps.transactionLinking.service.banksTransactions;
 
-import vr.com.apps.transactionLinking.model.entity.BankStatement;
 import vr.com.apps.transactionLinking.service.ResourceList;
 import vr.com.apps.utility.Utils;
 import vr.com.apps.utility.resourceReader.ResourceLoader;
