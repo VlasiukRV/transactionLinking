@@ -18,7 +18,7 @@ import vr.com.apps.transactionLinking.service.banksTransactions.EBanksKinds;
 import vr.com.apps.transactionLinking.service.banksTransactions.PBBankStatement;
 import vr.com.apps.transactionLinking.service.banksTransactions.PBResourceListBankStatement;
 import vr.com.apps.utility.resourceReader.ResourceProperty;
-import vr.com.apps.utility.resourceReader.ResourceType;
+import vr.com.apps.utility.resourceReader.EResourceType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,18 +71,18 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public ResourceListOrders orderList(){
-        return new ResourceListOrders<>(new ResourceProperty(ResourceType.FILE));
+        return new ResourceListOrders<>(new ResourceProperty(EResourceType.FILE));
     }
 
     @Bean
     public Map<EBanksKinds, ResourceList<BankStatement>> bankStatementsList(){
         Map<EBanksKinds, ResourceList<BankStatement>> bankStatementsList = new HashMap<>();
-        bankStatementsList.put(EBanksKinds.PB, new PBResourceListBankStatement<>(new ResourceProperty(ResourceType.FILE)));
+        bankStatementsList.put(EBanksKinds.PB, new PBResourceListBankStatement<>(new ResourceProperty(EResourceType.FILE)));
         return bankStatementsList;
     }
 
     @Bean
     public ResourceList<PBBankStatement> resourceListBankStatementPB(){
-        return  new PBResourceListBankStatement<>(new ResourceProperty(ResourceType.FILE));
+        return  new PBResourceListBankStatement<>(new ResourceProperty(EResourceType.FILE));
     }
 }

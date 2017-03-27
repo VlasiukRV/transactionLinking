@@ -6,7 +6,7 @@ import vr.com.apps.transactionLinking.service.banksTransactions.PBResourceListBa
 import vr.com.apps.transactionLinking.service.ResourceListOrders;
 import vr.com.apps.transactionLinking.model.TransactionLinking;
 import vr.com.apps.utility.resourceReader.ResourceProperty;
-import vr.com.apps.utility.resourceReader.ResourceType;
+import vr.com.apps.utility.resourceReader.EResourceType;
 
 import java.io.IOException;
 
@@ -25,8 +25,8 @@ public class Proba {
     public void test() throws IOException{
 
 
-        ResourceList<BankStatement> bankStatementList = new PBResourceListBankStatement(new ResourceProperty(ResourceType.FILE));
-        ResourceListOrders orderList = new ResourceListOrders<>(new ResourceProperty(ResourceType.FILE));
+        ResourceList<BankStatement> bankStatementList = new PBResourceListBankStatement(new ResourceProperty(EResourceType.FILE));
+        ResourceListOrders orderList = new ResourceListOrders<>(new ResourceProperty(EResourceType.FILE));
 
         orderList.setRequestProperty("$FileAddress", "E:\\Work\\oders.txt");
         orderList.downloadResource();

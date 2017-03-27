@@ -1,6 +1,6 @@
 package vr.com.apps.utility.resourceReader;
 
-public enum ResourceType {
+public enum EResourceType {
     FILE,
     URL
 }

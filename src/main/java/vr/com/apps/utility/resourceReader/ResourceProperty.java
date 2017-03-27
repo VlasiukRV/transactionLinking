@@ -4,23 +4,23 @@ import java.util.HashMap;
 
 public class ResourceProperty extends HashMap<String, Object>{
 
-    private ResourceType resourceType;
+    private EResourceType EResourceType;
 
     public ResourceProperty(){
 
     }
 
-    public ResourceProperty(ResourceType resourceType){
+    public ResourceProperty(EResourceType EResourceType){
 
-        this.resourceType = resourceType;
+        this.EResourceType = EResourceType;
     }
 
-    public ResourceType getResourceType() {
-        return resourceType;
+    public EResourceType getResourceType() {
+        return EResourceType;
     }
 
-    public void setResourceType(ResourceType resourceType) {
-        this.resourceType = resourceType;
+    public void setResourceType(EResourceType EResourceType) {
+        this.EResourceType = EResourceType;
     }
 
     public void setRequestProperty(String key, String value) throws NullPointerException{

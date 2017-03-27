@@ -6,7 +6,7 @@ public class ResourceLoader {
 
     public static ResourceReader getResource(ResourceProperty resourceProperty) throws IOException{
         ResourceReader resourceReader = null;
-        if (resourceProperty.getResourceType() == ResourceType.FILE) {
+        if (resourceProperty.getResourceType() == EResourceType.FILE) {
             resourceReader = new FileResourceReader();
         }
 
