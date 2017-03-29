@@ -7,7 +7,10 @@ import vr.com.apps.transactionLinking.model.report.ReportTransactionsHistory;
 import vr.com.apps.transactionLinking.service.ResourceList;
 import vr.com.apps.transactionLinking.service.ResourceListOrders;
 import vr.com.apps.transactionLinking.service.banksTransactions.BankStatement;
+import vr.com.apps.transactionLinking.service.banksTransactions.EBanksKinds;
 
+import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +25,8 @@ public class LinkingApp {
     private ResourceListOrders<Order> orderList;
 
     // Service
+    @Resource(name="bankStatementsList")
+    private Map<EBanksKinds, ResourceList<BankStatement>> tableBanksProvider;
     @Autowired
     private TransactionLinking transactionLinking;
     @Autowired
@@ -29,6 +34,30 @@ public class LinkingApp {
 
     public LinkingApp() {
     }
+
+    public boolean downloadFileResource(ResourceList currentResource, String filename){
+        boolean downloadResource = false;
+
+        if (currentResource != null) {
+            if (!filename.equals("")) {
+                currentResource.setRequestProperty("$FileAddress", filename);
+                downloadResource = true;
+            }
+        }
+
+        if (downloadResource) {
+            try {
+                currentResource.downloadResource();
+            } catch (IOException ex) {
+                System.out.println("Error download resource " + currentResource);
+                downloadResource = false;
+            }
+        }
+
+        return downloadResource;
+    }
+
+    // Model
 
     public void makeCustomersList(){
         for (Order order : orderList) {
@@ -63,13 +92,16 @@ public class LinkingApp {
         return orderList;
     }
 
-    public void addBankStatement(ResourceList<BankStatement> bankStatement){
-        if (bankStatement == null){
+    public void addBankStatement(EBanksKinds bankKind){
+        if (bankKind == null){
             return;
         }
 
-        if (!bankStatementsList.contains(bankStatement)) {
-            bankStatementsList.add(bankStatement);
+        if (tableBanksProvider.containsKey(bankKind)) {
+            ResourceList<BankStatement> currentBankProvider = tableBanksProvider.get(bankKind);
+            if (!bankStatementsList.contains(currentBankProvider)) {
+                bankStatementsList.add(currentBankProvider);
+            }
         }
     }
 
@@ -77,9 +109,19 @@ public class LinkingApp {
         return bankStatementsList;
     }
 
+    // TransactionLinking
+
     public TransactionLinking getTransactionLinking() {
         return transactionLinking;
     }
+
+    public void makeTransactionLinking(){
+        makeCustomersList();
+        transactionLinking.linkSetTransactionsToCustomers(bankStatementsList, customerList);
+        makeReportTransactionsHistory();
+    }
+
+    // ReportTransactionsHistory
 
     public ReportTransactionsHistory getReportTransactionsHistory() {
         return reportTransactionsHistory;
@@ -102,12 +144,6 @@ public class LinkingApp {
             BankTransaction bt = (BankTransaction)operation;
             reportTransactionsHistory.addOutcomeCustomerOperation(bt.getCustomer(), operation);
         }
-    }
-
-    public void makeTransactionLinking(){
-        makeCustomersList();
-        transactionLinking.linkSetTransactionsToCustomers(bankStatementsList, customerList);
-        makeReportTransactionsHistory();
     }
 
 }

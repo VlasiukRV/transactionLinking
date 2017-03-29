@@ -7,19 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import vr.com.apps.transactionLinking.model.LinkingApp;
-import vr.com.apps.transactionLinking.service.banksTransactions.BankStatement;
 import vr.com.apps.transactionLinking.model.entity.BankTransaction;
 import vr.com.apps.transactionLinking.model.entity.Customer;
 import vr.com.apps.transactionLinking.service.ResourceList;
 import vr.com.apps.transactionLinking.service.banksTransactions.EBanksKinds;
 import vr.com.apps.utility.Utils;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -31,9 +27,6 @@ public class TransactionLinkingController {
     @Autowired
     @Qualifier(value = "emptyCustomer")
     private Customer emptyCustomer;
-
-    @Resource(name="bankStatementsList")
-    private Map<EBanksKinds, ResourceList<BankStatement>> bankStatementsList;
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.HEAD})
     public String main(HttpSession httpSession, ModelMap model) {
@@ -55,14 +48,11 @@ public class TransactionLinkingController {
             currentResource = linkingApp.getOrderList();
         }else if(resourceType.equals("Transactions")){
             EBanksKinds bankKind = EBanksKinds.valueOf(strBankKind);
-            if (bankStatementsList.containsKey(bankKind)) {
-                currentResource = bankStatementsList.get(bankKind);
-                linkingApp.addBankStatement(currentResource);
-            }
+            linkingApp.addBankStatement(bankKind);
         }
 
         if(currentResource != null) {
-            success = downloadFileResource(currentResource, filename);
+            success = linkingApp.downloadFileResource(currentResource, filename);
         }
 
         JSONObject json = new JSONObject();
@@ -133,25 +123,4 @@ public class TransactionLinkingController {
         return Utils.getJSONOfObject(linkingApp.getReportTransactionsHistory());
     }
 
-    private boolean downloadFileResource(ResourceList currentResource, String filename){
-        boolean downloadResource = false;
-
-        if (currentResource != null) {
-            if (!filename.equals("")) {
-                currentResource.setRequestProperty("$FileAddress", filename);
-                downloadResource = true;
-            }
-        }
-
-        if (downloadResource) {
-            try {
-                currentResource.downloadResource();
-            } catch (IOException ex) {
-                System.out.println("Error download resource " + currentResource);
-                downloadResource = false;
-            }
-        }
-
-        return downloadResource;
-    }
 }
