@@ -92,17 +92,20 @@ public class LinkingApp {
         return orderList;
     }
 
-    public void addBankStatement(EBanksKinds bankKind){
+    public ResourceList addBankStatement(EBanksKinds bankKind){
         if (bankKind == null){
-            return;
+            return null;
         }
 
         if (tableBanksProvider.containsKey(bankKind)) {
             ResourceList<BankStatement> currentBankProvider = tableBanksProvider.get(bankKind);
             if (!bankStatementsList.contains(currentBankProvider)) {
                 bankStatementsList.add(currentBankProvider);
+                return currentBankProvider;
             }
         }
+
+        return null;
     }
 
     public Set<ResourceList<BankStatement>> getBankStatementsList() {

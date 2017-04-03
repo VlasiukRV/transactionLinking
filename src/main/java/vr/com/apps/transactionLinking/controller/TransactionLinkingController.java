@@ -48,7 +48,7 @@ public class TransactionLinkingController {
             currentResource = linkingApp.getOrderList();
         }else if(resourceType.equals("Transactions")){
             EBanksKinds bankKind = EBanksKinds.valueOf(strBankKind);
-            linkingApp.addBankStatement(bankKind);
+            currentResource  = linkingApp.addBankStatement(bankKind);
         }
 
         if(currentResource != null) {
